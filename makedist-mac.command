@@ -25,34 +25,34 @@ FULL_VERSION=$MAJOR_VERSION"."$MINOR_VERSION"."$BUG_FIX
 # work out the paths to the bundles
 
 VST2=`echo | grep VST_FOLDER ../../common.xcconfig`
-VST2=${VST2//\VST_FOLDER = }/MyFirstPlugin.vst
+VST2=${VST2//\VST_FOLDER = }/DigitalDistortion.vst
 
 VST3=`echo | grep VST3_FOLDER ../../common.xcconfig`
-VST3=${VST3//\VST3_FOLDER = }/MyFirstPlugin.vst3
+VST3=${VST3//\VST3_FOLDER = }/DigitalDistortion.vst3
 
 AU=`echo | grep AU_FOLDER ../../common.xcconfig`
-AU=${AU//\AU_FOLDER = }/MyFirstPlugin.component
+AU=${AU//\AU_FOLDER = }/DigitalDistortion.component
 
 APP=`echo | grep APP_FOLDER ../../common.xcconfig`
-APP=${APP//\APP_FOLDER = }/MyFirstPlugin.app
+APP=${APP//\APP_FOLDER = }/DigitalDistortion.app
 
 # Dev build folder
 RTAS=`echo | grep RTAS_FOLDER ../../common.xcconfig`
-RTAS=${RTAS//\RTAS_FOLDER = }/MyFirstPlugin.dpm
-RTAS_FINAL="/Library/Application Support/Digidesign/Plug-Ins/MyFirstPlugin.dpm"
+RTAS=${RTAS//\RTAS_FOLDER = }/DigitalDistortion.dpm
+RTAS_FINAL="/Library/Application Support/Digidesign/Plug-Ins/DigitalDistortion.dpm"
 
 # Dev build folder
 AAX=`echo | grep AAX_FOLDER ../../common.xcconfig`
-AAX=${AAX//\AAX_FOLDER = }/MyFirstPlugin.aaxplugin
-AAX_FINAL="/Library/Application Support/Avid/Audio/Plug-Ins/MyFirstPlugin.aaxplugin"
+AAX=${AAX//\AAX_FOLDER = }/DigitalDistortion.aaxplugin
+AAX_FINAL="/Library/Application Support/Avid/Audio/Plug-Ins/DigitalDistortion.aaxplugin"
 
-PKG='installer/build-mac/MyFirstPlugin Installer.pkg'
-PKG_US='installer/build-mac/MyFirstPlugin Installer.unsigned.pkg'
+PKG='installer/build-mac/DigitalDistortion Installer.pkg'
+PKG_US='installer/build-mac/DigitalDistortion Installer.unsigned.pkg'
 
 CERT_ID=`echo | grep CERTIFICATE_ID ../../common.xcconfig`
 CERT_ID=${CERT_ID//\CERTIFICATE_ID = }
 
-echo "making MyFirstPlugin version $FULL_VERSION mac distribution..."
+echo "making DigitalDistortion version $FULL_VERSION mac distribution..."
 echo ""
 
 #---------------------------------------------------------------------------------------------------------
@@ -116,8 +116,8 @@ fi
 #---------------------------------------------------------------------------------------------------------
 
 # build xcode project. Change target to build individual formats 
-xcodebuild -project MyFirstPlugin.xcodeproj -xcconfig MyFirstPlugin.xcconfig -target "All" -configuration Release 2> ./build-mac.log
-#xcodebuild -project MyFirstPlugin-ios.xcodeproj -xcconfig MyFirstPlugin.xcconfig -target "IOSAPP" -configuration Release
+xcodebuild -project DigitalDistortion.xcodeproj -xcconfig DigitalDistortion.xcconfig -target "All" -configuration Release 2> ./build-mac.log
+#xcodebuild -project DigitalDistortion-ios.xcodeproj -xcconfig DigitalDistortion.xcconfig -target "IOSAPP" -configuration Release
 
 if [ -s build-mac.log ]
 then
@@ -134,11 +134,11 @@ fi
 #icon stuff - http://maxao.free.fr/telechargements/setfileicon.gz
 echo "setting icons"
 echo ""
-setfileicon resources/MyFirstPlugin.icns $AU
-setfileicon resources/MyFirstPlugin.icns $VST2
-setfileicon resources/MyFirstPlugin.icns $VST3
-setfileicon resources/MyFirstPlugin.icns "${RTAS}"
-setfileicon resources/MyFirstPlugin.icns "${AAX}"
+setfileicon resources/DigitalDistortion.icns $AU
+setfileicon resources/DigitalDistortion.icns $VST2
+setfileicon resources/DigitalDistortion.icns $VST3
+setfileicon resources/DigitalDistortion.icns "${RTAS}"
+setfileicon resources/DigitalDistortion.icns "${AAX}"
 
 #---------------------------------------------------------------------------------------------------------
 
@@ -151,20 +151,20 @@ echo "copying AAX bundle from 3PDev to main AAX folder"
 sudo cp -p -R "${AAX}" "${AAX_FINAL}"
 
 echo "code sign AAX binary"
-sudo ashelper -f "${AAX_FINAL}/Contents/MacOS/MyFirstPlugin" -l ../../../Certificates/aax.crt -k ../../../Certificates/aax.key -o "${AAX_FINAL}/Contents/MacOS/MyFirstPlugin"
+sudo ashelper -f "${AAX_FINAL}/Contents/MacOS/DigitalDistortion" -l ../../../Certificates/aax.crt -k ../../../Certificates/aax.key -o "${AAX_FINAL}/Contents/MacOS/DigitalDistortion"
 #---------------------------------------------------------------------------------------------------------
 
 #appstore stuff
 
 # echo "code signing app for appstore"
 # echo ""
-# codesign -f -s "3rd Party Mac Developer Application: ""${CERT_ID}" $APP --entitlements resources/MyFirstPlugin.entitlements
+# codesign -f -s "3rd Party Mac Developer Application: ""${CERT_ID}" $APP --entitlements resources/DigitalDistortion.entitlements
 #  
 # echo "building pkg for app store"
 # productbuild \
 #      --component $APP /Applications \
 #      --sign "3rd Party Mac Developer Installer: ""${CERT_ID}" \
-#      --product "/Applications/MyFirstPlugin.app/Contents/Info.plist" installer/MyFirstPlugin.pkg
+#      --product "/Applications/DigitalDistortion.app/Contents/Info.plist" installer/DigitalDistortion.pkg
 
 #---------------------------------------------------------------------------------------------------------
 
@@ -177,11 +177,11 @@ sudo ashelper -f "${AAX_FINAL}/Contents/MacOS/MyFirstPlugin" -l ../../../Certifi
 #---------------------------------------------------------------------------------------------------------
 
 # installer, uses Packages http://s.sudre.free.fr/Software/Packages/about.html
-sudo sudo rm -R -f installer/MyFirstPlugin-mac.dmg
+sudo sudo rm -R -f installer/DigitalDistortion-mac.dmg
 
 echo "building installer"
 echo ""
-packagesbuild installer/MyFirstPlugin.pkgproj
+packagesbuild installer/DigitalDistortion.pkgproj
 
 #echo "code sign installer for Gatekeeper on 10.8"
 #echo ""
@@ -191,7 +191,7 @@ packagesbuild installer/MyFirstPlugin.pkgproj
 #rm -R -f "${PKG_US}"
 
 #set installer icon
-setfileicon resources/MyFirstPlugin.icns "${PKG}"
+setfileicon resources/DigitalDistortion.icns "${PKG}"
 
 #---------------------------------------------------------------------------------------------------------
 
@@ -200,19 +200,19 @@ setfileicon resources/MyFirstPlugin.icns "${PKG}"
 echo "building dmg"
 echo ""
 
-if [ -d installer/MyFirstPlugin.dmgCanvas ]
+if [ -d installer/DigitalDistortion.dmgCanvas ]
 then
-  dmgcanvas installer/MyFirstPlugin.dmgCanvas installer/MyFirstPlugin-mac.dmg
+  dmgcanvas installer/DigitalDistortion.dmgCanvas installer/DigitalDistortion-mac.dmg
 else
-  hdiutil create installer/MyFirstPlugin.dmg -srcfolder installer/build-mac/ -ov -anyowners -volname MyFirstPlugin
+  hdiutil create installer/DigitalDistortion.dmg -srcfolder installer/build-mac/ -ov -anyowners -volname DigitalDistortion
   
-  if [ -f installer/MyFirstPlugin-mac.dmg ]
+  if [ -f installer/DigitalDistortion-mac.dmg ]
   then
-   rm -f installer/MyFirstPlugin-mac.dmg
+   rm -f installer/DigitalDistortion-mac.dmg
   fi
   
-  hdiutil convert installer/MyFirstPlugin.dmg -format UDZO -o installer/MyFirstPlugin-mac.dmg
-  sudo rm -R -f installer/MyFirstPlugin.dmg
+  hdiutil convert installer/DigitalDistortion.dmg -format UDZO -o installer/DigitalDistortion-mac.dmg
+  sudo rm -R -f installer/DigitalDistortion.dmg
 fi
 
 sudo rm -R -f installer/build-mac/
@@ -222,16 +222,16 @@ sudo rm -R -f installer/build-mac/
 
 # echo "copying binaries..."
 # echo ""
-# cp -R $AU installer/dist/MyFirstPlugin.component
-# cp -R $VST2 installer/dist/MyFirstPlugin.vst
-# cp -R $VST3 installer/dist/MyFirstPlugin.vst3
-# cp -R $RTAS installer/dist/MyFirstPlugin.dpm
-# cp -R $AAX installer/dist/MyFirstPlugin.aaxplugin
-# cp -R $APP installer/dist/MyFirstPlugin.app
+# cp -R $AU installer/dist/DigitalDistortion.component
+# cp -R $VST2 installer/dist/DigitalDistortion.vst
+# cp -R $VST3 installer/dist/DigitalDistortion.vst3
+# cp -R $RTAS installer/dist/DigitalDistortion.dpm
+# cp -R $AAX installer/dist/DigitalDistortion.aaxplugin
+# cp -R $APP installer/dist/DigitalDistortion.app
 # 
 # echo "zipping binaries..."
 # echo ""
-# ditto -c -k installer/dist installer/MyFirstPlugin-mac.zip
+# ditto -c -k installer/dist installer/DigitalDistortion-mac.zip
 # rm -R installer/dist
 
 #---------------------------------------------------------------------------------------------------------

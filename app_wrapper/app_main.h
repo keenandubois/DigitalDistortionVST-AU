@@ -12,9 +12,9 @@
 
  App settings are stored in a .ini file. The location is as follows:
 
- Windows7: C:\Users\USERNAME\AppData\Local\MyFirstPlugin\settings.ini
- Windows XP/Vista: C:\Documents and Settings\USERNAME\Local Settings\Application Data\MyFirstPlugin\settings.ini
- OSX: /Users/USERNAME/Library/Application\ Support/MyFirstPlugin/settings.ini
+ Windows7: C:\Users\USERNAME\AppData\Local\DigitalDistortion\settings.ini
+ Windows XP/Vista: C:\Documents and Settings\USERNAME\Local Settings\Application Data\DigitalDistortion\settings.ini
+ OSX: /Users/USERNAME/Library/Application\ Support/DigitalDistortion/settings.ini
 
 */
 
@@ -44,7 +44,7 @@
 #include <string>
 #include <vector>
 
-#include "../MyFirstPlugin.h" // change this to match your iplug plugin .h file
+#include "../DigitalDistortion.h" // change this to match your iplug plugin .h file
 
 typedef unsigned short UInt16;
 

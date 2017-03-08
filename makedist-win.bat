@@ -6,7 +6,7 @@ REM - zipping requires 7zip in %ProgramFiles%\7-Zip\7z.exe
 REM - building installer requires innotsetup in "%ProgramFiles(x86)%\Inno Setup 5\iscc"
 REM - AAX codesigning requires ashelper tool added to %PATH% env variable and aax.key/.crt in .\..\..\..\Certificates\
 
-echo Making MyFirstPlugin win distribution ...
+echo Making DigitalDistortion win distribution ...
 
 echo ------------------------------------------------------------------
 echo Updating version numbers ...
@@ -33,15 +33,15 @@ REM - set preprocessor macros like this, for instance to enable demo build:
 REM - SET CMDLINE_DEFINES="DEMO_VERSION"
 
 REM - Could build individual targets like this:
-REM - msbuild MyFirstPlugin-app.vcxproj /p:configuration=release /p:platform=win32
+REM - msbuild DigitalDistortion-app.vcxproj /p:configuration=release /p:platform=win32
 
-msbuild MyFirstPlugin.sln /p:configuration=release /p:platform=win32 /nologo /noconsolelogger /fileLogger /v:quiet /flp:logfile=build-win.log;errorsonly 
-msbuild MyFirstPlugin.sln /p:configuration=release /p:platform=x64 /nologo /noconsolelogger /fileLogger /v:quiet /flp:logfile=build-win.log;errorsonly;append
+msbuild DigitalDistortion.sln /p:configuration=release /p:platform=win32 /nologo /noconsolelogger /fileLogger /v:quiet /flp:logfile=build-win.log;errorsonly 
+msbuild DigitalDistortion.sln /p:configuration=release /p:platform=x64 /nologo /noconsolelogger /fileLogger /v:quiet /flp:logfile=build-win.log;errorsonly;append
 
 echo ------------------------------------------------------------------
 echo Code sign aax binary...
-call ashelper -f .\build-win\aax\bin\MyFirstPlugin.aaxplugin\Contents\Win32\MyFirstPlugin.aaxplugin -l .\..\..\..\Certificates\aax.crt -k .\..\..\..\Certificates\aax.key -o .\build-win\aax\bin\MyFirstPlugin.aaxplugin\Contents\Win32\MyFirstPlugin.aaxplugin
-REM - call ashelper -f .\build-win\aax\bin\MyFirstPlugin.aaxplugin\Contents\x64\MyFirstPlugin.aaxplugin -l .\..\..\..\Certificates\aax.crt -k .\..\..\..\Certificates\aax.key -o .\build-win\aax\bin\MyFirstPlugin.aaxplugin\Contents\x64\MyFirstPlugin.aaxplugin
+call ashelper -f .\build-win\aax\bin\DigitalDistortion.aaxplugin\Contents\Win32\DigitalDistortion.aaxplugin -l .\..\..\..\Certificates\aax.crt -k .\..\..\..\Certificates\aax.key -o .\build-win\aax\bin\DigitalDistortion.aaxplugin\Contents\Win32\DigitalDistortion.aaxplugin
+REM - call ashelper -f .\build-win\aax\bin\DigitalDistortion.aaxplugin\Contents\x64\DigitalDistortion.aaxplugin -l .\..\..\..\Certificates\aax.crt -k .\..\..\..\Certificates\aax.key -o .\build-win\aax\bin\DigitalDistortion.aaxplugin\Contents\x64\DigitalDistortion.aaxplugin
 
 REM - Make Installer (InnoSetup)
 
@@ -51,18 +51,18 @@ echo Making Installer ...
 if exist "%ProgramFiles(x86)%" (goto 64-Bit-is) else (goto 32-Bit-is)
 
 :32-Bit-is
-"%ProgramFiles%\Inno Setup 5\iscc" /cc ".\installer\MyFirstPlugin.iss"
+"%ProgramFiles%\Inno Setup 5\iscc" /cc ".\installer\DigitalDistortion.iss"
 goto END-is
 
 :64-Bit-is
-"%ProgramFiles(x86)%\Inno Setup 5\iscc" /cc ".\installer\MyFirstPlugin.iss"
+"%ProgramFiles(x86)%\Inno Setup 5\iscc" /cc ".\installer\DigitalDistortion.iss"
 goto END-is
 
 :END-is
 
 REM - ZIP
-REM - "%ProgramFiles%\7-Zip\7z.exe" a .\installer\MyFirstPlugin-win-32bit.zip .\build-win\app\win32\bin\MyFirstPlugin.exe .\build-win\vst3\win32\bin\MyFirstPlugin.vst3 .\build-win\vst2\win32\bin\MyFirstPlugin.dll .\build-win\rtas\bin\MyFirstPlugin.dpm .\build-win\rtas\bin\MyFirstPlugin.dpm.rsr .\build-win\aax\bin\MyFirstPlugin.aaxplugin* .\installer\license.rtf .\installer\readmewin.rtf
-REM - "%ProgramFiles%\7-Zip\7z.exe" a .\installer\MyFirstPlugin-win-64bit.zip .\build-win\app\x64\bin\MyFirstPlugin.exe .\build-win\vst3\x64\bin\MyFirstPlugin.vst3 .\build-win\vst2\x64\bin\MyFirstPlugin.dll .\installer\license.rtf .\installer\readmewin.rtf
+REM - "%ProgramFiles%\7-Zip\7z.exe" a .\installer\DigitalDistortion-win-32bit.zip .\build-win\app\win32\bin\DigitalDistortion.exe .\build-win\vst3\win32\bin\DigitalDistortion.vst3 .\build-win\vst2\win32\bin\DigitalDistortion.dll .\build-win\rtas\bin\DigitalDistortion.dpm .\build-win\rtas\bin\DigitalDistortion.dpm.rsr .\build-win\aax\bin\DigitalDistortion.aaxplugin* .\installer\license.rtf .\installer\readmewin.rtf
+REM - "%ProgramFiles%\7-Zip\7z.exe" a .\installer\DigitalDistortion-win-64bit.zip .\build-win\app\x64\bin\DigitalDistortion.exe .\build-win\vst3\x64\bin\DigitalDistortion.vst3 .\build-win\vst2\x64\bin\DigitalDistortion.dll .\installer\license.rtf .\installer\readmewin.rtf
 
 echo ------------------------------------------------------------------
 echo Printing log file to console...
