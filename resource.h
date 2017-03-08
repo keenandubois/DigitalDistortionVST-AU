@@ -1,19 +1,19 @@
 #define PLUG_MFR "KeenanDuBois"
-#define PLUG_NAME "MyFirstPlugin"
+#define PLUG_NAME "DigitalDistortion"
 
-#define PLUG_CLASS_NAME MyFirstPlugin
+#define PLUG_CLASS_NAME DigitalDistortion
 
 #define BUNDLE_MFR "KeenanDuBois"
-#define BUNDLE_NAME "MyFirstPlugin"
+#define BUNDLE_NAME "DigitalDistortion"
 
-#define PLUG_ENTRY MyFirstPlugin_Entry
-#define PLUG_VIEW_ENTRY MyFirstPlugin_ViewEntry
+#define PLUG_ENTRY DigitalDistortion_Entry
+#define PLUG_VIEW_ENTRY DigitalDistortion_ViewEntry
 
-#define PLUG_ENTRY_STR "MyFirstPlugin_Entry"
-#define PLUG_VIEW_ENTRY_STR "MyFirstPlugin_ViewEntry"
+#define PLUG_ENTRY_STR "DigitalDistortion_Entry"
+#define PLUG_VIEW_ENTRY_STR "DigitalDistortion_ViewEntry"
 
-#define VIEW_CLASS MyFirstPlugin_View
-#define VIEW_CLASS_STR "MyFirstPlugin_View"
+#define VIEW_CLASS DigitalDistortion_View
+#define VIEW_CLASS_STR "DigitalDistortion_View"
 
 // Format        0xMAJR.MN.BG - in HEX! so version 10.1.5 would be 0x000A0105
 #define PLUG_VER 0x00010000
@@ -34,7 +34,7 @@
 #endif
 
 #define PLUG_MFR_PT "KeenanDuBois\nKeenanDuBois\nAcme"
-#define PLUG_NAME_PT "MyFirstPlugin\nIPEF"
+#define PLUG_NAME_PT "DigitalDistortion\nIPEF"
 #define PLUG_TYPE_PT "Effect"
 #define PLUG_DOES_AUDIOSUITE 1
 
