@@ -34,8 +34,9 @@ DigitalDistortion::DigitalDistortion(IPlugInstanceInfo instanceInfo)
   GetParam(kThreshold)->SetShape(2.);
 
   IGraphics* pGraphics = MakeGraphics(this, kWidth, kHeight);
-  pGraphics->AttachPanelBackground(&COLOR_RED);
-
+ // pGraphics->AttachPanelBackground(&COLOR_RED);
+  pGraphics->AttachBackground(BACKGROUND_ID, BACKGROUND_FN);
+  
   IBitmap knob = pGraphics->LoadIBitmap(KNOB_ID, KNOB_FN, kKnobFrames);
 
   pGraphics->AttachControl(new IKnobMultiControl(this, kThresholdX, kThresholdY, kThreshold, &knob));
